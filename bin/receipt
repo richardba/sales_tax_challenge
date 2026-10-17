@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../sales_tax"
+
+if ARGV.length > 1
+  warn "Usage: ruby bin/receipt [path-to-basket.txt]"
+  exit 1
+end
+
+begin
+  input = ARGV.empty? ? $stdin.read : File.read(ARGV.first)
+
+  items = SalesTax::BasketParser.new.parse(input)
+  receipt = SalesTax::Receipt.new(items)
+
+  puts SalesTax::ReceiptFormatter.new.format(receipt)
+rescue SalesTax::ParseError, ArgumentError, SystemCallError => e
+  warn "Error: #{e.message}"
+  exit 1
+end

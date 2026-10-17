@@ -1,0 +1,11 @@
+.ruby-lsp/
+.bundle/
+vendor/bundle/
+coverage/
+tmp/
+.env
+.env.*
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
